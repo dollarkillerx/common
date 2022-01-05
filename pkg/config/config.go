@@ -31,7 +31,7 @@ type PostgresConfiguration struct {
 	User     string
 	Password string
 	DBName   string
-	LogMode  bool
+	LogMode  MySQLLogMode
 }
 
 // ESConfiguration  configuration for elasticsearch connection
