@@ -4,6 +4,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+
+	"time"
 )
 
 // ServiceConfiguration  configuration for service
@@ -74,6 +76,20 @@ type MinIOConfiguration struct {
 	Token     string
 	SSL       bool
 	Region    string
+}
+
+// CreeperConfiguration ...
+type CreeperConfiguration struct {
+	Uri   string
+	Token string
+}
+
+// WarehouseConfiguration ...
+type WarehouseConfiguration struct {
+	Uri       string
+	AccessKey string
+	SecretKey string
+	Timeout   time.Duration
 }
 
 // LoggerConfig configuration for logger
