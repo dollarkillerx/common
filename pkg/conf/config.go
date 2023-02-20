@@ -1,11 +1,9 @@
-package cfg
+package conf
 
 import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-
-	"time"
 )
 
 // ServiceConfiguration  configuration for service
@@ -16,7 +14,7 @@ type ServiceConfiguration struct {
 // MySQLConfiguration  configuration for MySQL database connection
 type MySQLConfiguration struct {
 	Host     string
-	Port     string
+	Port     int
 	User     string
 	Password string
 	DBName   string
@@ -27,10 +25,12 @@ type MySQLConfiguration struct {
 // PostgresConfiguration  configuration for Postgres database connection
 type PostgresConfiguration struct {
 	Host     string
-	Port     string
+	Port     int
 	User     string
 	Password string
 	DBName   string
+	SSLMode  bool
+	TimeZone string
 	LogMode  MySQLLogMode
 }
 
@@ -44,8 +44,31 @@ type ESConfiguration struct {
 
 // RedisConfiguration ...
 type RedisConfiguration struct {
-	Host string
-	Port string
+	Addr     string
+	Db       int
+	Password string
+}
+
+// ConsulConfiguration ...
+type ConsulConfiguration struct {
+	Address string
+}
+
+// ETCDConfiguration ...
+type ETCDConfiguration struct {
+	Endpoints   []string
+	DialTimeout int // sec
+	Username    string
+	Password    string
+}
+
+// NSQConfiguration ...
+type NSQConfiguration struct {
+	Address []string
+}
+
+// TDengineConfiguration ...
+type TDengineConfiguration struct {
 }
 
 // MongoDBConfiguration  configuration for redis connection
@@ -78,42 +101,12 @@ type MinIOConfiguration struct {
 	Region    string
 }
 
-// CreeperConfiguration ...
-type CreeperConfiguration struct {
-	Uri   string
-	Token string
-}
-
-// WarehouseConfiguration ...
-type WarehouseConfiguration struct {
-	Uri       string
-	AccessKey string
-	SecretKey string
-	Timeout   time.Duration
-}
-
 // LoggerConfig configuration for logger
 type LoggerConfig struct {
 	// log filename, **if it's not set, the log will be written to os.Stdout**
 	Filename string
-	// maximun size of single file, unit: MB
-	MaxSize int
-	// maximun number of days to retain the log file, unit: day
-	MaxAge int
-	// maximum number of log files to retain
-	MaxBackups int
-	// whether compress log file
-	Compress bool
 	// 枚举字符串 "warn" > "info" > "debug" > "trace"
 	Level LevelMode
-}
-
-// RemoteServiceConfiguration  ...
-type RemoteServiceConfiguration struct {
-	// eg: "180.96.8.140:9998"
-	RemoteHost string
-	// eg: "/gateway/twirp/rime.adam.rpc_gateway.RPCGateway/"
-	RemotePathPrefix string
 }
 
 // InitConfiguration ...
