@@ -58,6 +58,10 @@ func InitLogger(conf conf.LoggerConfig) {
 	logger = lg.Sugar()
 }
 
+func GetLogger() *zap.SugaredLogger {
+	return logger
+}
+
 func getEncoder() zapcore.Encoder {
 	encoderConfig := zap.NewProductionEncoderConfig()
 	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
