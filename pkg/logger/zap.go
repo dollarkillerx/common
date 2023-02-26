@@ -7,6 +7,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+var zp *zap.Logger
 var logger *zap.SugaredLogger
 
 func Debug(args ...interface{}) {
@@ -54,12 +55,16 @@ func InitLogger(conf conf.LoggerConfig) {
 	encoder := getEncoder()
 	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
 
-	lg := zap.New(core, zap.AddCallerSkip(1), zap.WithCaller(true))
-	logger = lg.Sugar()
+	zp = zap.New(core, zap.AddCallerSkip(1), zap.WithCaller(true))
+	logger = zp.Sugar()
 }
 
-func GetLogger() *zap.SugaredLogger {
+func GetSugaredLogger() *zap.SugaredLogger {
 	return logger
+}
+
+func GetLogger() *zap.Logger {
+	return zp
 }
 
 func getEncoder() zapcore.Encoder {
